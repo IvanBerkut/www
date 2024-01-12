@@ -1,4 +1,3 @@
-// utils.js
 import Big from "big.js";
 
 export const applyDiscount = (price, discount) => {
