@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import {
   Drawer,
   Grid,
@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import BasicCard from "../../components/common/BasicCard/BasicCard";
-import { useStateContext, StateProvider } from "../../context/StateContext";
+import { useStateContext } from "../../context/StateContext";
 import _ from "lodash";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
@@ -33,32 +33,29 @@ const Products = () => {
     return productsToCompare.some((product) => product.id === productId);
   };
 
-  const filterProducts = () => {
+  const filteredProducts = useMemo(() => {
     if (!filterCategory) {
       return products;
     }
 
     return products.filter((product) => product.category === filterCategory);
-  };
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("fetching");
+      console.log('fetching data')
       try {
         const response = await fetch("http://localhost:3000/api/products");
         const jsonData = await response.json();
 
-        if (!total) {
-          updateTotal(jsonData.meta.total);
-        }
-
+        // updateTotal(jsonData.meta.total);
         updateProducts((prevProducts) => {
           const newproducts = _.uniqBy(
             [...prevProducts, ...jsonData.data],
             "id"
           );
 
-          if (newproducts.length >= total) {
+          if (newproducts.length >= jsonData.meta.total) {
             clearInterval(interval);
           }
 
@@ -78,18 +75,12 @@ const Products = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [total, products, updateProducts, updateTotal]);
-
-  useEffect(() => {
-    filterProducts();
-  }, [filterCategory, products]);
+  }, []);
 
   const handleCategoryChange = (category) => {
     setFilterCategory(category);
   };
-
   return (
-    <StateProvider>
       <Grid container spacing={2} sx={{ p: 2, pt: 16 }}>
         <Container
           sx={{
@@ -127,7 +118,7 @@ const Products = () => {
         </Container>
         <Grid item>
           <Grid container spacing={2}>
-            {filterProducts().map((product) => (
+            {filteredProducts.map((product) => (
               <BasicCard
                 onAdd={() => addToCompare(product.id)}
                 onRemove={() => removeFromCompare(product.id)}
@@ -176,7 +167,6 @@ const Products = () => {
           </div>
         </Drawer>
       </Grid>
-    </StateProvider>
   );
 };
 

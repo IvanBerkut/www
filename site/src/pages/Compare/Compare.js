@@ -14,13 +14,12 @@ import {
 } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { applyDiscount } from "../../components/Utils.js/Utils";
-import { useStateContext, StateProvider } from "../../context/StateContext";
+import { useStateContext } from "../../context/StateContext";
 
 const Compare = () => {
   const { productsToCompare, removeFromCompare } = useStateContext();
 
   return (
-    <StateProvider>
       <Grid container spacing={2} sx={{ p: 2, pt: 10 }}>
         <Grid item xs={12}>
           {productsToCompare.length === 0 ? (
@@ -105,7 +104,6 @@ const Compare = () => {
           )}
         </Grid>
       </Grid>
-    </StateProvider>
   );
 };
 
