@@ -1,0 +1,14 @@
+{
+  "name": "frontend-interview",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "eCentral GmbH",
+  "license": "Proprietary",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.2"
+  }
+}
