@@ -5,7 +5,6 @@ const StateContext = createContext();
 export const StateProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [productsToCompare, setProductsToCompare] = useState([]);
-  const [total, setTotal] = useState(0);
 
   const addToCompare = (id) => {
     const foundObject = products.find((item) => item.id === id);
@@ -24,10 +23,6 @@ export const StateProvider = ({ children }) => {
     );
   };
 
-  const updateTotal = (newTotal) => {
-    setTotal(newTotal);
-  };
-
   const updateProducts = (newProducts) => {
     setProducts(newProducts);
   };
@@ -38,9 +33,7 @@ export const StateProvider = ({ children }) => {
         productsToCompare,
         addToCompare,
         removeFromCompare,
-        total,
         products,
-        updateTotal,
         updateProducts,
       }}
     >
