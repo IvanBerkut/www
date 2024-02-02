@@ -20,7 +20,6 @@ export default function BasicCard({
   description,
   imageURL,
   brand,
-  category,
   discount,
   originalProductUrl,
   rating,
@@ -29,24 +28,24 @@ export default function BasicCard({
   onRemove,
 }) {
   return (
-    <Grid item xs={12} sm={6} md={3}>
+    <Grid item xs={12} sm={6} md={4} lg={3}>
       <Card>
         <CardHeader title={name} subheader={brand} />
         <CardMedia component="img" height="140" image={imageURL} alt={name} />
         <CardContent>
           <Grid container spacing={2} sx={{ height: "100%" }}>
             <Grid item xs={6}>
-              {/* <Typography
+              <Typography
                 variant="body2"
                 color="textSecondary"
-                sx={{ overflow: "hidden", height: "60px" }}
+                sx={{ textDecoration: "line-through" }}
               >
-                {brand}
-              </Typography> */}
+                {price} €
+              </Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="body2" color="textSecondary" align="right">
-                {price} €
+              <Typography variant="body2" color="#FF8800" align="right">
+                {discount} %
               </Typography>
             </Grid>
             <Grid item xs={12} sx={{ overflow: "hidden", height: "60px" }}>
@@ -61,25 +60,30 @@ export default function BasicCard({
           <Rating name="product-rating" value={rating} readOnly />
         </CardContent>
         <CardActions>
-          <Button
-            variant="contained"
-            color="primary"
-            href={originalProductUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Original Website
-          </Button>
-          <Tooltip
-            title={isInCompare ? "Remove from Compare" : "Add to Compare"}
-          >
-            <IconButton
-              color={isInCompare ? "secondary" : "primary"}
-              onClick={isInCompare ? onRemove : onAdd}
-            >
-              <CompareArrowsIcon />
-            </IconButton>
-          </Tooltip>
+          <Grid container justifyContent="space-between" alignItems="center">
+            <Grid item>
+              <Button
+                variant="contained"
+                color="primary"
+                href={originalProductUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Original Website
+              </Button>
+            </Grid>
+            <Grid item>
+              <Tooltip
+                title={isInCompare ? "Remove from Compare" : "Add to Compare"}
+              >
+                <IconButton onClick={isInCompare ? onRemove : onAdd}>
+                  <CompareArrowsIcon
+                    color={isInCompare ? "error" : "primary"}
+                  />
+                </IconButton>
+              </Tooltip>
+            </Grid>
+          </Grid>
         </CardActions>
       </Card>
     </Grid>

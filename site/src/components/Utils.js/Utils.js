@@ -16,3 +16,25 @@ export const applyDiscount = (price, discount) => {
 
   return result;
 };
+
+export const sortOptions = [
+  { label: "Default", option: "default" },
+  { label: "Price: Low to High", option: "price", order: "asc" },
+  { label: "Price: High to Low", option: "price", order: "desc" },
+  { label: "Discount: Low to High", option: "discount", order: "asc" },
+  { label: "Discount: High to Low", option: "discount", order: "desc" },
+  {
+    label: "Discounted Price: Low to High",
+    option: "discountedPrice",
+    order: "asc",
+  },
+  {
+    label: "Discounted Price: High to Low",
+    option: "discountedPrice",
+    order: "desc",
+  },
+  { label: "Rating: Low to High", option: "rating", order: "asc" },
+  { label: "Rating: High to Low", option: "rating", order: "desc" },
+  { label: "Name: A-Z", option: "name", order: "asc" },
+  { label: "Name: Z-A", option: "name", order: "desc" },
+];
